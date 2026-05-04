@@ -1,16 +1,17 @@
-# hadolint global ignore=DL3006
+# syntax=docker/dockerfile:1
+# check=skip=InvalidDefaultArgInFrom
 ARG BASE_IMAGE
 FROM $BASE_IMAGE
 
-ENV SHELL /bin/bash
+USER root
 
-ARG USERNAME=autoware
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
+RUN --mount=type=bind,source=src,target=/tmp/src \
+    apt-get update && \
+    bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash && \
+             source /opt/autoware/setup.bash && \
+             rosdep install -y \
+               --from-paths /tmp/src \
+               --ignore-src \
+               --rosdistro ${ROS_DISTRO} -r'
 
-RUN groupadd --gid $USER_GID $USERNAME \
-  && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-  && apt-get update \
-  && apt-get install -y sudo \
-  && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-  && chmod 0440 /etc/sudoers.d/$USERNAME
+USER aw
