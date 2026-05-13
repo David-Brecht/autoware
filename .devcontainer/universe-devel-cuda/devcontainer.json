@@ -1,27 +1,83 @@
 {
   "name": "autoware:universe-devel-cuda",
   "build": {
+    "context": "../..",
     "dockerfile": "../Dockerfile",
-    "args": { "BASE_IMAGE": "ghcr.io/autowarefoundation/autoware:universe-devel-cuda" }
+    "args": {
+      "BASE_IMAGE": "ghcr.io/autowarefoundation/autoware:universe-devel-cuda",
+      "INSTALL_CUDA_TOOLS": "1",
+      "DEFAULT_ROS_DISTRO": "humble",
+      "SOURCE_SETUP_FILES": "/opt/autoware/setup.bash;/workspace/install/setup.bash"
+    },
+    "options": ["--network=host"]
   },
   "remoteUser": "autoware",
+  "containerUser": "autoware",
+  "updateRemoteUserUID": true,
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/workspace",
   "hostRequirements": {
     "gpu": true
   },
+  "postCreateCommand": "bash .devcontainer/install-deps.sh && bash .devcontainer/update-cspell.sh && sudo sysctl -w kernel.yama.ptrace_scope=0",
+  "privileged": true,
+  "init": true,
+  "containerEnv": {
+    "DISPLAY": "${localEnv:DISPLAY}",
+    "XAUTHORITY": "${localEnv:XAUTHORITY}",
+    "XDG_RUNTIME_DIR": "/tmp/xdg",
+    "NVIDIA_DRIVER_CAPABILITIES": "all"
+  },
+  "mounts": [
+    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind",
+    "source=/etc/localtime,target=/etc/localtime,type=bind,readonly",
+    "source=/dev/dri,target=/dev/dri,type=bind,readonly",
+    "source=${localEnv:HOME}/autoware_data,target=/home/autoware/autoware_data,type=bind",
+    "source=${localEnv:HOME}/autoware_map,target=/home/autoware/autoware_map,type=bind",
+    "source=${localEnv:HOME}/.ssh,target=/home/autoware/.ssh,type=bind",
+    "source=${localEnv:HOME}/.webauto,target=/home/autoware/.webauto,type=bind",
+    "source=${localEnv:HOME}/.config/Lichtblick,target=/home/autoware/.config/Lichtblick,type=bind",
+    "source=${localEnv:HOME}/.ccache,target=/ccache,type=bind"
+  ],
   "runArgs": [
-    "--cap-add=SYS_PTRACE",
-    "--security-opt",
-    "seccomp=unconfined",
+    "--rm",
+    "--name=${localWorkspaceFolderBasename}",
     "--net=host",
-    "--volume=/etc/localtime:/etc/localtime:ro",
-    "--gpus",
-    "all"
+    "--pid=host",
+    "--ipc=host",
+    "--ulimit=memlock=-1",
+    "--ulimit=stack=67108864",
+    "--gpus=all"
   ],
   "customizations": {
     "vscode": {
-      "settings.json": {
-        "terminal.integrated.profiles.linux": { "bash": { "path": "/bin/bash" } }
-      }
+      "settings": {
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash"
+          }
+        }
+      },
+      "extensions": [
+        "cschlosser.doxdocgen",
+        "eamodio.gitlens",
+        "foxundermoon.shell-format",
+        "github.vscode-pull-request-github",
+        "llvm-vs-code-extensions.vscode-clangd",
+        "ms-azuretools.vscode-docker",
+        "ms-python.black-formatter",
+        "ms-python.debugpy",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "nvidia.nsight-vscode-edition",
+        "Ranch-Hand-Robotics.rde-pack",
+        "redhat.vscode-xml",
+        "redhat.vscode-yaml",
+        "streetsidesoftware.code-spell-checker",
+        "timonwong.shellcheck",
+        "twxs.cmake",
+        "yzhang.markdown-all-in-one"
+      ]
     }
   }
 }

@@ -1,0 +1,240 @@
+{
+  "version": "2.0.0",
+  "configurations": [
+    {
+      "name": "Python: Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "args": [
+        "--ros-args",
+        "-r",
+        "__ns:=${input:namespace}",
+        "--params-file",
+        "${workspaceFolder}/${input:packageParentPath}/${input:package}/${input:config}"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Launch gdb",
+      "type": "cppdbg",
+      "request": "launch",
+      "envFile": "${workspaceFolder}/.vscode/.debug.env",
+      "program": "${workspaceFolder}/install/${input:package}/lib/${input:package}/${input:program}",
+      "args": [
+        "--ros-args",
+        "-r",
+        "__ns:=${input:namespace}",
+        "--params-file",
+        "${workspaceFolder}/install/${input:package}/share/${input:package}/${input:config}"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for C++ vectors etc.",
+          "text": "python import sys; sys.path.append('/usr/share/gcc/python');from libstdcxx.v6.printers import register_libstdcxx_printers;register_libstdcxx_printers(None)",
+          "ignoreFailures": false
+        },
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set Disassembly Flavor to Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "Debug: Prelaunch"
+    },
+    {
+      "name": "Launch cuda-gdb",
+      "type": "cuda-gdb",
+      "request": "launch",
+      "envFile": "${workspaceFolder}/.vscode/.debug.env",
+      "program": "${workspaceFolder}/install/${input:package}/lib/${input:package}/${input:program}",
+      "args": [
+        "--ros-args",
+        "-r",
+        "__ns:=${input:namespace}",
+        "--params-file",
+        "${workspaceFolder}/install/${input:package}/share/${input:package}/${input:config}"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for C++ vectors etc.",
+          "text": "python import sys; sys.path.append('/usr/share/gcc/python');from libstdcxx.v6.printers import register_libstdcxx_printers;register_libstdcxx_printers(None)",
+          "ignoreFailures": false
+        },
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set Disassembly Flavor to Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "Debug: Prelaunch"
+    },
+    {
+      "name": "Launch gdb with server",
+      "type": "cppdbg",
+      "request": "launch",
+      "envFile": "${workspaceFolder}/.vscode/.debug.env",
+      "program": "${workspaceFolder}/install/${input:package}/lib/${input:package}/${input:program}",
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerServerAddress": "localhost:4242",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for C++ vectors etc.",
+          "text": "python import sys; sys.path.append('/usr/share/gcc/python');from libstdcxx.v6.printers import register_libstdcxx_printers;register_libstdcxx_printers(None)",
+          "ignoreFailures": false
+        },
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set Disassembly Flavor to Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "Debug: Prelaunch"
+    },
+    {
+      "name": "Launch cuda-gdb with server",
+      "type": "cuda-gdbserver",
+      "request": "launch",
+      "envFile": "${workspaceFolder}/.vscode/.debug.env",
+      "program": "${workspaceFolder}/install/${input:package}/lib/${input:package}/${input:program}",
+      "args": [
+        "--ros-args",
+        "-r",
+        "__ns:=${input:namespace}",
+        "--params-file",
+        "${workspaceFolder}/install/${input:package}/share/${input:package}/${input:config}"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "target": {
+        "host": "localhost",
+        "port": "4242"
+      },
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for C++ vectors etc.",
+          "text": "python import sys; sys.path.append('/usr/share/gcc/python');from libstdcxx.v6.printers import register_libstdcxx_printers;register_libstdcxx_printers(None)",
+          "ignoreFailures": false
+        },
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set Disassembly Flavor to Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "Debug: Prelaunch"
+    },
+    {
+      "name": "Attach gdb",
+      "type": "cppdbg",
+      "request": "attach",
+      "program": "${workspaceFolder}/install/${input:package}/lib/${input:package}/${input:program}",
+      "MIMode": "gdb",
+      "processId": "${command:pickProcess}",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for C++ vectors etc.",
+          "text": "python import sys; sys.path.append('/usr/share/gcc/python');from libstdcxx.v6.printers import register_libstdcxx_printers;register_libstdcxx_printers(None)",
+          "ignoreFailures": false
+        },
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set Disassembly Flavor to Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "Debug: Prelaunch"
+    },
+    {
+      "name": "Attach cuda-gdb",
+      "type": "cuda-gdb",
+      "request": "attach",
+      "program": "${workspaceFolder}/install/${input:package}/lib/${input:package}/${input:program}",
+      "processId": "${command:cuda.pickProcess}",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for C++ vectors etc.",
+          "text": "python import sys; sys.path.append('/usr/share/gcc/python');from libstdcxx.v6.printers import register_libstdcxx_printers;register_libstdcxx_printers(None)",
+          "ignoreFailures": false
+        },
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set Disassembly Flavor to Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "Debug: Prelaunch"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "package",
+      "type": "promptString",
+      "description": "Package name.",
+      "default": ""
+    },
+    {
+      "id": "packageParentPath",
+      "type": "promptString",
+      "description": "Path from workspace to package parent directory (e.g., 'src' or 'src/sub_folder')",
+      "default": "src"
+    },
+    {
+      "id": "program",
+      "type": "promptString",
+      "description": "Program (node) name (defined in CMakeLists.txt).",
+      "default": ""
+    },
+    {
+      "id": "config",
+      "type": "promptString",
+      "description": "Config relative path.",
+      "default": "config/${input:package}.param.yaml"
+    },
+    {
+      "id": "namespace",
+      "type": "promptString",
+      "description": "Program namespace.",
+      "default": "/"
+    }
+  ]
+}

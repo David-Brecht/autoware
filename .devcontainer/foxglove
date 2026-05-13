@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# --- Script Configuration ---
+# Default port for the Foxglove WebSocket server.
+DEFAULT_PORT=8765
+# Global variable to hold the bridge process ID for cleanup.
+BRIDGE_PID=
+
+# --- Help Message ---
+# Displays usage information for the script.
+show_help() {
+    cat <<EOF
+Usage: $(basename "$0") [-h|--help] [port:=PORT] [ros_launch_args...]
+
+Launches the Foxglove bridge and lichtblick client.
+
+This script launches a Foxglove bridge on the requested port and then opens the lichtblick client.
+ROS 2 workspaces must be sourced before running this script.
+
+OPTIONS:
+  -h, --help        Show this help message and exit.
+  port:=PORT        Specify the WebSocket port using ROS-style syntax.
+
+EXAMPLES:
+  # Launch with default settings
+  $(basename "$0")
+
+  # Launch on a custom port
+  $(basename "$0") port:=8766
+
+  # Pass arguments to 'ros2 launch'
+  $(basename "$0") use_sim_time:=True
+
+  # Combine a custom port and ROS arguments
+  $(basename "$0") port:=8766 use_sim_time:=True
+EOF
+}
+
+# --- Cleanup Function ---
+# Ensures the background foxglove_bridge process is terminated when the script exits.
+cleanup() {
+    # Check if the BRIDGE_PID variable is set and refers to a running process
+    if [[ -n $BRIDGE_PID && -e /proc/"$BRIDGE_PID" ]]; then
+        echo -e "\nShutting down Foxglove bridge (PID: ${BRIDGE_PID})..."
+        # Kill the process and suppress output
+        kill "$BRIDGE_PID" >/dev/null 2>&1
+    fi
+}
+
+# --- Main Logic ---
+main() {
+    local port="${DEFAULT_PORT}"
+    # Use an array to safely store ROS launch arguments
+    local ros_args=()
+
+    # --- Argument Parsing ---
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+        -h | --help)
+            show_help
+            exit 0
+            ;;
+        port:=*)
+            port="${1#port:=}"
+            if [[ ! $port =~ ^[0-9]+$ || $port -lt 1024 || $port -gt 65535 ]]; then
+                echo "Error: port:= requires a valid port number (1024-65535)." >&2
+                exit 1
+            fi
+            shift
+            ;;
+        *)
+            # Assume all other arguments are for ros2 launch
+            ros_args+=("$1")
+            shift
+            ;;
+        esac
+    done
+
+    if ! command -v ros2 >/dev/null 2>&1; then
+        echo "Error: ros2 is not available. Source the workspace before running this command." >&2
+        exit 1
+    fi
+
+    if ! command -v lichtblick >/dev/null 2>&1; then
+        echo "Error: lichtblick is not installed in this container." >&2
+        exit 1
+    fi
+
+    if ! command -v ss >/dev/null 2>&1; then
+        echo "Error: ss is not available in this container." >&2
+        exit 1
+    fi
+
+    # --- Port Availability Check ---
+    echo "Checking if port ${port} is available..."
+    if ss -tuln | grep -q ":${port}\b"; then
+        echo "Error: Port ${port} is already in use." >&2
+        echo "Please free the port or use port:=PORT to specify another." >&2
+        # You can optionally show which process is using the port if 'lsof' is available
+        if command -v lsof &>/dev/null; then
+            echo "Port is being used by:"
+            lsof -i :"${port}"
+        fi
+        exit 1
+    fi
+
+    # --- Execution ---
+    echo "Launching Foxglove bridge on port ${port}..."
+    # Launch the bridge in the background
+    ros2 launch foxglove_bridge foxglove_bridge_launch.xml \
+        send_buffer_limit:=1000000000 \
+        port:="${port}" \
+        "${ros_args[@]}" &
+
+    # Capture the PID of the last background command
+    BRIDGE_PID=$!
+
+    echo "Foxglove bridge started with PID: ${BRIDGE_PID}."
+    # Add a small delay to ensure the server starts before the client tries to connect
+    sleep 1
+
+    echo "Launching lichtblick..."
+    # Launch the client application
+    lichtblick "lichtblick://open?ds=foxglove-websocket&ds.url=ws://localhost:${port}/"
+
+    echo "Bridge is running. Press Ctrl+C to stop."
+    # Wait for the bridge process to terminate. This keeps the script alive.
+    # When the user presses Ctrl+C, the trap will trigger the cleanup function.
+    wait "$BRIDGE_PID"
+}
+
+# --- Script Entrypoint ---
+# Set a trap to call the cleanup function on script exit or interruption
+trap cleanup EXIT
+# Run the main function, passing all script arguments
+main "$@"
