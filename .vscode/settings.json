@@ -76,5 +76,6 @@
     "**/log": true,
     "**/.git": true
   },
-  "yaml.schemas": {}
+  "yaml.schemas": {},
+  "ROS2.distro": "humble"
 }

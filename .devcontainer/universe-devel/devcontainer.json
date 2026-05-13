@@ -22,7 +22,10 @@
   "containerEnv": {
     "DISPLAY": "${localEnv:DISPLAY}",
     "XAUTHORITY": "${localEnv:XAUTHORITY}",
-    "XDG_RUNTIME_DIR": "/tmp/xdg"
+    "XDG_RUNTIME_DIR": "/tmp/xdg",
+    "ROS_DOMAIN_ID": "17",
+    "RMW_IMPLEMENTATION": "rmw_cyclonedds_cpp",
+    "CYCLONEDDS_URI": "file:///workspace/config/dds/no_multicast.xml"
   },
   "mounts": [
     "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind",
@@ -70,7 +73,8 @@
         "streetsidesoftware.code-spell-checker",
         "timonwong.shellcheck",
         "twxs.cmake",
-        "yzhang.markdown-all-in-one"
+        "yzhang.markdown-all-in-one",
+        "anthropic.claude-code"
       ]
     }
   }
