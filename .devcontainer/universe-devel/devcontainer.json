@@ -16,7 +16,7 @@
   "updateRemoteUserUID": true,
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
   "workspaceFolder": "/workspace",
-  "postCreateCommand": "bash .devcontainer/install-deps.sh && bash .devcontainer/update-cspell.sh && sudo sysctl -w kernel.yama.ptrace_scope=0",
+  "postCreateCommand": "bash .devcontainer/install-deps.sh && bash .devcontainer/update-cspell.sh && sudo sysctl -w kernel.yama.ptrace_scope=0 && echo 'source /workspace/.devcontainer/bash_helpers.sh' >> ~/.bashrc",
   "privileged": true,
   "init": true,
   "containerEnv": {
@@ -36,7 +36,8 @@
     "source=${localEnv:HOME}/.ssh,target=/home/autoware/.ssh,type=bind",
     "source=${localEnv:HOME}/.webauto,target=/home/autoware/.webauto,type=bind",
     "source=${localEnv:HOME}/.config/Lichtblick,target=/home/autoware/.config/Lichtblick,type=bind",
-    "source=${localEnv:HOME}/.ccache,target=/ccache,type=bind"
+    "source=${localEnv:HOME}/.ccache,target=/ccache,type=bind",
+    "source=${localEnv:HOME}/.claude,target=/home/autoware/.claude,type=bind"
   ],
   "runArgs": [
     "--rm",
@@ -74,7 +75,8 @@
         "timonwong.shellcheck",
         "twxs.cmake",
         "yzhang.markdown-all-in-one",
-        "anthropic.claude-code"
+        "anthropic.claude-code",
+        "gruntfuggly.todo-tree"
       ]
     }
   }
