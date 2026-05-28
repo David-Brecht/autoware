@@ -76,7 +76,8 @@
         "twxs.cmake",
         "yzhang.markdown-all-in-one",
         "anthropic.claude-code",
-        "gruntfuggly.todo-tree"
+        "gruntfuggly.todo-tree",
+        "openai.chatgpt",
       ]
     }
   }

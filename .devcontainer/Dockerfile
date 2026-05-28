@@ -74,6 +74,8 @@ RUN apt-get update \
     valgrind \
     vim \
     wget \
+    konsole \
+    libqt5charts5-dev \
   ) \
   && if [[ "${INSTALL_CUDA_TOOLS}" == "1" ]]; then packages+=(nvidia-cuda-gdb); fi \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends "${packages[@]}" \
@@ -179,6 +181,8 @@ RUN existing_group="$(getent group "$USER_GID" 2>/dev/null | cut -d: -f1 || true
   && chown -R "$USERNAME":"$USERNAME" /ccache \
   && chmod 700 "$XDG_RUNTIME_DIR" \
   && chown -R "$USERNAME":"$USERNAME" "$XDG_RUNTIME_DIR"
+
+RUN rm -rf /opt/autoware
 
 # Final user and workspace setup
 USER $USERNAME
