@@ -25,3 +25,5 @@ capture/
 
 # Node.js
 node_modules/
+
+repositories/private.repos
