@@ -78,6 +78,7 @@
         "anthropic.claude-code",
         "gruntfuggly.todo-tree",
         "openai.chatgpt",
+	"pomdtr.excalidraw-editor",
       ]
     }
   }

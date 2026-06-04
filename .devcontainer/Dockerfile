@@ -76,6 +76,8 @@ RUN apt-get update \
     wget \
     konsole \
     libqt5charts5-dev \
+    libcli11-dev \
+    evince \
   ) \
   && if [[ "${INSTALL_CUDA_TOOLS}" == "1" ]]; then packages+=(nvidia-cuda-gdb); fi \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends "${packages[@]}" \

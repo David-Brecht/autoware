@@ -131,4 +131,6 @@ repositories:
     type: git
     url: https://github.com/autowarefoundation/trt_batched_nms.git
     version: 98024a240c6329704ef03fd7ef10011dddb5da67
-
+  universe/external/matplotplusplus:
+    type: git
+    url: https://github.com/alandefreitas/matplotplusplus
