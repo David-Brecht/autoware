@@ -203,6 +203,52 @@
         }
       ],
       "preLaunchTask": "Debug: Prelaunch"
+    },
+    {
+      "name": "Debug freespace_planner",
+      "type": "cppdbg",
+      "request": "launch",
+      "envFile": "${workspaceFolder}/.vscode/.debug.env",
+      "program": "${workspaceFolder}/install/tum_autoware_freespace_planner/lib/tum_autoware_freespace_planner/freespace_planner",
+      "args": [
+        "--ros-args",
+        "-r", "__node:=freespace_planner",
+        "-r", "__ns:=/external/remote",
+        "--params-file", "${workspaceFolder}/install/tum_autoware_freespace_planner/share/tum_autoware_freespace_planner/config/freespace_planner.param.yaml",
+        "--params-file", "${workspaceFolder}/install/autoware_vehicle_info_utils/share/autoware_vehicle_info_utils/config/vehicle_info.param.yaml",
+        "-r", "~/input/path:=/planning/scenario_planning/lane_driving/behavior_planning/path",
+        "-r", "~/input/occupancy_grid:=/planning/scenario_planning/parking/costmap_generator/occupancy_grid",
+        "-r", "~/input/odometry:=/localization/kinematic_state",
+        "-r", "~/output/trajectory:=/external/remote/trajectory",
+        "-r", "is_completed:=is_completed"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for C++ vectors etc.",
+          "text": "python import sys; sys.path.append('/usr/share/gcc/python');from libstdcxx.v6.printers import register_libstdcxx_printers;register_libstdcxx_printers(None)",
+          "ignoreFailures": false
+        },
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set Disassembly Flavor to Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Pass SIGINT to process (don't intercept Ctrl+C)",
+          "text": "handle SIGINT nostop noprint pass",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "Debug: Prelaunch"
     }
   ],
   "inputs": [
@@ -235,6 +281,36 @@
       "type": "promptString",
       "description": "Program namespace.",
       "default": "/"
+    },
+    {
+      "version": "0.2.0",
+      "configurations": [
+        {
+          "name": "Debug freespace_planner",
+          "type": "cppdbg",
+          "request": "launch",
+          "program": "${workspaceFolder}/install/tum_autoware_freespace_planner/lib/tum_autoware_freespace_planner/freespace_planner",
+          "args": [
+            "--ros-args",
+            "-r", "__node:=freespace_planner",
+            "-r", "__ns:=/external/remote",
+            "--params-file", "${workspaceFolder}/install/tum_autoware_freespace_planner/share/tum_autoware_freespace_planner/config/freespace_planner.param.yaml",
+            "--params-file", "${workspaceFolder}/install/autoware_vehicle_info_utils/share/autoware_vehicle_info_utils/config/vehicle_info.param.yaml",
+            "-r", "~/input/path:=/planning/scenario_planning/lane_driving/behavior_planning/path",
+            "-r", "~/input/occupancy_grid:=/planning/scenario_planning/parking/costmap_generator/occupancy_grid",
+            "-r", "~/input/odometry:=/localization/kinematic_state",
+            "-r", "~/output/trajectory:=/external/remote/trajectory",
+            "-r", "is_completed:=is_completed"
+          ],
+          "stopAtEntry": false,
+          "cwd": "${workspaceFolder}",
+          "MIMode": "gdb",
+          "setupCommands": [
+            { "text": "-enable-pretty-printing", "ignoreFailures": true },
+            { "text": "handle SIGINT nostop noprint pass", "ignoreFailures": true }
+          ]
+        }
+      ]
     }
   ]
 }
