@@ -5,7 +5,7 @@ rosbag2_bagfile_information:
     nanoseconds: 0
   starting_time:
     nanoseconds_since_epoch: 0
-  message_count: 10
+  message_count: 11
   topics_with_message_count:
     - topic_metadata:
         name: trajectory_30_m
@@ -56,6 +56,12 @@ rosbag2_bagfile_information:
         offered_qos_profiles: ""
       message_count: 1
     - topic_metadata:
+        name: trajectory_35_m
+        type: geometry_msgs/msg/PoseArray
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 1
+    - topic_metadata:
         name: trajectory_20_m
         type: geometry_msgs/msg/PoseArray
         serialization_format: cdr
@@ -70,11 +76,11 @@ rosbag2_bagfile_information:
   compression_format: ""
   compression_mode: ""
   relative_file_paths:
-    - output_turning_steps_2_0.mcap
+    - output_default_0.mcap
   files:
-    - path: output_turning_steps_2_0.mcap
+    - path: output_default_0.mcap
       starting_time:
         nanoseconds_since_epoch: 0
       duration:
         nanoseconds: 0
-      message_count: 10
+      message_count: 11

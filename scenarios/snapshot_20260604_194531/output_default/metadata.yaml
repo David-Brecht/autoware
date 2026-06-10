@@ -5,16 +5,46 @@ rosbag2_bagfile_information:
     nanoseconds: 0
   starting_time:
     nanoseconds_since_epoch: 0
-  message_count: 11
+  message_count: 14
   topics_with_message_count:
     - topic_metadata:
-        name: trajectory_30_m
+        name: trajectory_55_m
         type: geometry_msgs/msg/PoseArray
         serialization_format: cdr
         offered_qos_profiles: ""
       message_count: 1
     - topic_metadata:
-        name: trajectory_25_m
+        name: elapsed_time
+        type: std_msgs/msg/Float64
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 1
+    - topic_metadata:
+        name: trajectory_20_m
+        type: geometry_msgs/msg/PoseArray
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 1
+    - topic_metadata:
+        name: vehicle_length
+        type: std_msgs/msg/Float64
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 1
+    - topic_metadata:
+        name: vehicle_base2back
+        type: std_msgs/msg/Float64
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 1
+    - topic_metadata:
+        name: /tf
+        type: tf2_msgs/msg/TFMessage
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 1
+    - topic_metadata:
+        name: trajectory_35_m
         type: geometry_msgs/msg/PoseArray
         serialization_format: cdr
         offered_qos_profiles: ""
@@ -32,14 +62,20 @@ rosbag2_bagfile_information:
         offered_qos_profiles: ""
       message_count: 1
     - topic_metadata:
-        name: /tf
-        type: tf2_msgs/msg/TFMessage
+        name: trajectory_15_m
+        type: geometry_msgs/msg/PoseArray
         serialization_format: cdr
         offered_qos_profiles: ""
       message_count: 1
     - topic_metadata:
-        name: vehicle_base2back
-        type: std_msgs/msg/Float64
+        name: trajectory_25_m
+        type: geometry_msgs/msg/PoseArray
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 1
+    - topic_metadata:
+        name: trajectory_30_m
+        type: geometry_msgs/msg/PoseArray
         serialization_format: cdr
         offered_qos_profiles: ""
       message_count: 1
@@ -50,26 +86,8 @@ rosbag2_bagfile_information:
         offered_qos_profiles: ""
       message_count: 1
     - topic_metadata:
-        name: vehicle_length
-        type: std_msgs/msg/Float64
-        serialization_format: cdr
-        offered_qos_profiles: ""
-      message_count: 1
-    - topic_metadata:
-        name: trajectory_35_m
+        name: trajectory_45_m
         type: geometry_msgs/msg/PoseArray
-        serialization_format: cdr
-        offered_qos_profiles: ""
-      message_count: 1
-    - topic_metadata:
-        name: trajectory_20_m
-        type: geometry_msgs/msg/PoseArray
-        serialization_format: cdr
-        offered_qos_profiles: ""
-      message_count: 1
-    - topic_metadata:
-        name: elapsed_time
-        type: std_msgs/msg/Float64
         serialization_format: cdr
         offered_qos_profiles: ""
       message_count: 1
@@ -83,4 +101,4 @@ rosbag2_bagfile_information:
         nanoseconds_since_epoch: 0
       duration:
         nanoseconds: 0
-      message_count: 11
+      message_count: 14

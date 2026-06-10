@@ -8,13 +8,13 @@ rosbag2_bagfile_information:
   message_count: 11
   topics_with_message_count:
     - topic_metadata:
-        name: trajectory_30_m
+        name: trajectory_25_m
         type: geometry_msgs/msg/PoseArray
         serialization_format: cdr
         offered_qos_profiles: ""
       message_count: 1
     - topic_metadata:
-        name: trajectory_25_m
+        name: trajectory_15_m
         type: geometry_msgs/msg/PoseArray
         serialization_format: cdr
         offered_qos_profiles: ""
