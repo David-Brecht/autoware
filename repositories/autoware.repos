@@ -13,8 +13,8 @@ repositories:
     version: ac910018c8b7fb29a59ee62e1f57e83c686b5632
   core/autoware_core:
     type: git
-    url: https://github.com/autowarefoundation/autoware_core.git
-    version: 16045061a9c10da468b60e190b8fab02110fa501
+    url: git@github.com:David-Brecht/autoware_core.git
+    version: feat/remote-interfaces
   core/autoware_internal_msgs:
     type: git
     url: https://github.com/autowarefoundation/autoware_internal_msgs.git
@@ -29,8 +29,8 @@ repositories:
     version: 7025d8f7df0ead43037d86f8a4ffda8b397d0293
   core/autoware_rviz_plugins:
     type: git
-    url: https://github.com/autowarefoundation/autoware_rviz_plugins.git
-    version: 2840a458239e0bb598427a0217b9b867d6af39f7
+    url: git@github.com:David-Brecht/autoware_rviz_plugins.git
+    version: feat/remote-interfaces
   core/autoware_system_designer:
     type: git
     url: https://github.com/autowarefoundation/autoware_system_designer.git
