@@ -6,7 +6,7 @@ repositories:
   core/autoware_adapi_msgs:
     type: git
     url: git@github.com:David-Brecht/autoware_adapi_msgs.git
-    version: feat/remote-interfaces
+    version: 2e240e3d5ce948c77ac5eecc545a1080475a27ec
   core/autoware_cmake:
     type: git
     url: https://github.com/autowarefoundation/autoware_cmake.git
@@ -14,7 +14,7 @@ repositories:
   core/autoware_core:
     type: git
     url: git@github.com:David-Brecht/autoware_core.git
-    version: feat/remote-interfaces
+    version: e21956d5acdbd130cfee7a5b4c76d7e7745dd0ed
   core/autoware_internal_msgs:
     type: git
     url: https://github.com/autowarefoundation/autoware_internal_msgs.git
@@ -30,7 +30,7 @@ repositories:
   core/autoware_rviz_plugins:
     type: git
     url: git@github.com:David-Brecht/autoware_rviz_plugins.git
-    version: feat/remote-interfaces
+    version: 2f04dd1fdbb1d39878366d4784c4d20823816001
   core/autoware_system_designer:
     type: git
     url: https://github.com/autowarefoundation/autoware_system_designer.git
@@ -46,7 +46,7 @@ repositories:
   launcher/autoware_launch:
     type: git
     url: git@github.com:David-Brecht/autoware_launch.git
-    version: feat/remote-interfaces
+    version: 3edf41e056ca9f78793c1b6e468c597ec38b789a
   sensor_component/external/nebula:
     type: git
     url: https://github.com/tier4/nebula.git
@@ -78,7 +78,7 @@ repositories:
   universe/autoware_universe:
     type: git
     url: git@github.com:David-Brecht/autoware_universe.git
-    version: feat/freespace-planner
+    version: 191d7a5e3c2bc050af22b9f2e741004d25281c6f
   universe/external/bevdet_vendor:
     type: git
     url: https://github.com/autowarefoundation/bevdet_vendor.git
