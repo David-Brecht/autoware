@@ -16553,12 +16553,12 @@
     <tag k='ele' v='22.115' />
     <tag k='mgrs_code' v='54SVE037737' />
   </node>
-  <node id='8937' visible='true' version='1' lat='35.90291841467' lon='139.93295926986'>
-    <tag k='ele' v='24.872' />
+  <node id='8937' action='modify' visible='true' version='1' lat='35.90291841467' lon='139.93295926986'>
+    <tag k='ele' v='0.0' />
     <tag k='mgrs_code' v='54SVE037737' />
   </node>
-  <node id='8938' visible='true' version='1' lat='35.90291284245' lon='139.93294723291'>
-    <tag k='ele' v='24.872' />
+  <node id='8938' action='modify' visible='true' version='1' lat='35.90291284245' lon='139.93294723291'>
+    <tag k='ele' v='0.0' />
     <tag k='mgrs_code' v='54SVE037737' />
   </node>
   <node id='8939' visible='true' version='1' lat='35.90303512988' lon='139.9328345075'>
